@@ -25,9 +25,13 @@ const Detalles = styled.div`
 function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const headers = ["Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
 
+  const generatePDF = () => {
+    // Function intentionally left empty
+  };
+
   return (
     <>
-      <Detalles>
+      <Detalles id="detalles">
         <Tiempo />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 50 }} aria-label="simple table">
@@ -85,9 +89,18 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
       </Detalles>
       <div className={styles.contenedorBoton}>
         <Button
-          sx={{ bgcolor: "var(--cielo)", color: "var(--negro)" }}
+          sx={{
+            bgcolor: "var(--cielo)",
+            color: "var(--negro)",
+            fontFamily: "Arimo",
+            fontSize: "20px",
+            fontWeight: "800",
+            border: "3px solid black",
+            borderRadius: "10px",
+          }}
           variant="contained"
           endIcon={<DoneOutlineIcon />}
+          onClick={generatePDF}
         >
           Finalizar
         </Button>

@@ -100,7 +100,10 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
     <StyledDialog open={open} onClose={onClose}>
       <StyledDialogTitle>Editar Producto</StyledDialogTitle>
       {error && (
-        <Alert severity="error" style={{ marginBottom: "16px", margin: "0px" }}>
+        <Alert
+          severity="error"
+          style={{ marginBottom: "16px", margin: "0px", alignItems: "center" }}
+        >
           <strong>{error}</strong>
         </Alert>
       )}
