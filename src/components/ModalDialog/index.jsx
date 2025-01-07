@@ -7,10 +7,11 @@ import {
   DialogContent,
   DialogTitle,
   styled,
+  Alert,
 } from "@mui/material";
-import Alerta from "../Alerta"
+import Alerta from "../Alerta";
 
-// Componentes creados con "Styled" 
+// Componentes creados con "Styled"
 // Ademas de ajustados para un mejor estilo
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -42,7 +43,7 @@ const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   marginBottom: "24px",
-  marginTop: "24px",
+  marginTop: "10px",
   "& .MuiInputLabel-root": {
     color: theme.palette.text.secondary,
   },
@@ -61,6 +62,7 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
     Cantidad: "",
     Precio: "",
   });
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (producto) {
@@ -71,19 +73,21 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDatos({ ...datos, [name]: value });
+    setError(""); // Limpiar el error cuando el usuario empieza a escribir
   };
 
   const handleSubmit = () => {
+    if (!datos.name || !datos.Cantidad || !datos.Precio) {
+      setError("Todos los campos son obligatorios.");
+      return;
+    }
     const productoActualizado = {
       ...datos,
       Cantidad: parseFloat(datos.Cantidad),
       Precio: parseFloat(datos.Precio),
     };
-    if (!datos.name || !datos.Cantidad || !datos.Precio) {
-      alert("Todos los campos son obligatorios.");
-      return;
-    }
     onSave(productoActualizado);
+    setError(""); // Limpiar el error después de guardar exitosamente
   };
 
   const fields = [
@@ -95,6 +99,11 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
   return (
     <StyledDialog open={open} onClose={onClose}>
       <StyledDialogTitle>Editar Producto</StyledDialogTitle>
+      {error && (
+        <Alert severity="error" style={{ marginBottom: "16px", margin: "0px" }}>
+          <strong>{error}</strong>
+        </Alert>
+      )}
       <StyledDialogContent>
         {fields.map((field) => (
           <StyledTextField

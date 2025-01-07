@@ -77,7 +77,7 @@ function App() {
       Alerta({
         icono: "success",
         titulo: "¡Correcto!",
-        texto: `Se eliminó ${productoEliminado.name}`,
+        texto: `Se eliminó <b>${productoEliminado.name}<b>`,
       });
     }
   };
@@ -97,7 +97,7 @@ function App() {
     Alerta({
       icono: "info",
       titulo: "¡Actualización Exitosa!",
-      texto: `Se actualizó el producto: ${productoActualizado.name}`,
+      texto: `Se actualizó el producto: <b>${productoActualizado.name}<b>`,
     });
   };
 

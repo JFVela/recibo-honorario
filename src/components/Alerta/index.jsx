@@ -16,7 +16,7 @@ const Alerta = ({
     icon: icono,
     title: titulo,
     showConfirmButton: false,
-    text: texto,
+    html: texto,
     timer: tiempo,
   });
 };
