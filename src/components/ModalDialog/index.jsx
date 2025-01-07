@@ -6,7 +6,50 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  styled,
 } from "@mui/material";
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialog-paper": {
+    borderRadius: "16px",
+    overflow: "hidden",
+  },
+}));
+
+const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  fontFamily: "'Poppins', sans-serif",
+  fontSize: "28px",
+  fontWeight: 700,
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+  padding: "24px",
+}));
+
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  padding: "24px",
+}));
+
+const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  justifyContent: "flex-end",
+  padding: "16px 24px",
+  gap: "16px",
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  marginBottom: "24px",
+  marginTop: "24px",
+  "& .MuiInputLabel-root": {
+    color: theme.palette.text.secondary,
+  },
+  "& .MuiInput-underline:before": {
+    borderBottomColor: theme.palette.divider,
+  },
+  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+    borderBottomColor: theme.palette.primary.main,
+  },
+}));
 
 export default function ModalDialog({ open, producto, onClose, onSave }) {
   const [datos, setDatos] = useState({
@@ -16,7 +59,6 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
     Precio: "",
   });
 
-  // Inicializa el estado con el producto seleccionado
   useEffect(() => {
     if (producto) {
       setDatos(producto);
@@ -34,48 +76,46 @@ export default function ModalDialog({ open, producto, onClose, onSave }) {
       Cantidad: parseFloat(datos.Cantidad),
       Precio: parseFloat(datos.Precio),
     };
+    if (!datos.name || !datos.Cantidad || !datos.Precio) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
     onSave(productoActualizado);
   };
 
+  const fields = [
+    { name: "name", label: "Nombre", type: "text" },
+    { name: "Cantidad", label: "Cantidad", type: "number" },
+    { name: "Precio", label: "Precio", type: "number" },
+  ];
+
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Editar Producto</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          name="name"
-          label="Nombre"
-          value={datos.name}
-          onChange={handleChange}
-          fullWidth
-          variant="standard"
-        />
-        <TextField
-          margin="dense"
-          name="Cantidad"
-          label="Cantidad"
-          type="number"
-          value={datos.Cantidad}
-          onChange={handleChange}
-          fullWidth
-          variant="standard"
-        />
-        <TextField
-          margin="dense"
-          name="Precio"
-          label="Precio"
-          type="number"
-          value={datos.Precio}
-          onChange={handleChange}
-          fullWidth
-          variant="standard"
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={handleSubmit}>Guardar</Button>
-      </DialogActions>
-    </Dialog>
+    <StyledDialog open={open} onClose={onClose}>
+      <StyledDialogTitle>Editar Producto</StyledDialogTitle>
+      <StyledDialogContent>
+        {fields.map((field) => (
+          <StyledTextField
+            key={field.name}
+            autoFocus={field.name === "name"}
+            required
+            fullWidth
+            name={field.name}
+            label={field.label}
+            type={field.type}
+            value={datos[field.name]}
+            onChange={handleChange}
+            variant="standard"
+          />
+        ))}
+      </StyledDialogContent>
+      <StyledDialogActions>
+        <Button variant="outlined" color="error" onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+          Guardar
+        </Button>
+      </StyledDialogActions>
+    </StyledDialog>
   );
 }
