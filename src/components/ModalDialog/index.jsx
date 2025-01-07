@@ -8,7 +8,10 @@ import {
   DialogTitle,
   styled,
 } from "@mui/material";
+import Alerta from "../Alerta"
 
+// Componentes creados con "Styled" 
+// Ademas de ajustados para un mejor estilo
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
     borderRadius: "16px",

@@ -23,7 +23,7 @@ const Detalles = styled.div`
 `;
 
 function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
-  const headers = ["Id", "Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
+  const headers = ["Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
 
   return (
     <>
@@ -54,7 +54,6 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
                   key={producto.Id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="left">{producto.Id}</TableCell>
                   <TableCell align="right">{producto.name}</TableCell>
                   <TableCell align="right">{producto.Cantidad}</TableCell>
                   <TableCell align="right">S/{producto.Precio}</TableCell>
