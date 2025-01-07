@@ -4,7 +4,8 @@ const ResumenContenido = styled.section`
   background-color: cornsilk;
   font-family: "Arimo";
   padding: 15px 10px;
-  width: 20%;
+  width: 50%;
+  max-width: 250px;
   display: flex;
   justify-content: center;
 `;
