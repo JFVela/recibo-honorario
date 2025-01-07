@@ -14,6 +14,7 @@ const Subtitulo = styled.h3`
 `;
 
 function Resumen({ subtotal }) {
+  // console.log("Subtotal en Resumen:", subtotal);
   return (
     <ResumenContenido>
       <Subtitulo>Total: S/{subtotal}</Subtitulo>
