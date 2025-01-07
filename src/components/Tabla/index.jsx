@@ -22,7 +22,7 @@ const Detalles = styled.div`
   flex-wrap: wrap;
 `;
 
-function Tabla({ productos, subtotal, eliminarProducto }) {
+function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const headers = ["Id", "Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
 
   return (
@@ -69,7 +69,11 @@ function Tabla({ productos, subtotal, eliminarProducto }) {
                     >
                       <ClearIcon fontSize="medium" />
                     </IconButton>
-                    <IconButton aria-label="edit" color="warning">
+                    <IconButton
+                      aria-label="edit"
+                      color="warning"
+                      onClick={() => editarProducto(producto)}
+                    >
                       <ModeEditIcon fontSize="medium" />
                     </IconButton>
                   </TableCell>

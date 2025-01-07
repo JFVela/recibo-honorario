@@ -3,6 +3,7 @@ import "./App.css";
 import Cabecera from "./components/Cabecera";
 import Formulario from "./components/Formulario";
 import Tabla from "./components/Tabla";
+import ModalDialog from "./components/ModalDialog";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
@@ -10,10 +11,24 @@ import Swal from "sweetalert2";
 function App() {
   //Variables
   const [productos, setProductos] = useState([]);
+  const [productoEditar, setProductoEditar] = useState(null);
   const [id, setId] = useState(uuidv4().substring(0, 6));
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [precio, setPrecio] = useState("");
+  const [open, setOpen] = useState(false);
+
+  //Abrir modal
+  const handleClickOpen = (producto) => {
+    setProductoEditar(producto);
+    setOpen(true);
+  };
+
+  //Cerrar Modal
+  const handleClose = () => {
+    setProductoEditar(null);
+    setOpen(false);
+  };
 
   //Funcion Agregar Producto
   const agregarProducto = () => {
@@ -56,9 +71,19 @@ function App() {
     setProductos((prev) => prev.filter((producto) => producto.Id !== id));
   };
 
+  //Funcion para guardar edición
+  const guardarEdicion = (productoActualizado) => {
+    setProductos((prev) =>
+      prev.map((producto) =>
+        producto.Id === productoActualizado.Id ? productoActualizado : producto
+      )
+    );
+    handleClose();
+  };
+
   //Lista de "Productos" almacenados
   //Asegurando que imprima al añadir, eliminar un producto
-  console.log(productos);
+  // console.log(productos);
 
   //Calculo dinamico para el Total
   const subtotal = productos.reduce((total, producto) => {
@@ -85,7 +110,16 @@ function App() {
           productos={productos}
           subtotal={subtotalFormatted}
           eliminarProducto={eliminarProducto}
+          editarProducto={handleClickOpen}
         />
+        {open && (
+          <ModalDialog
+            open={open}
+            producto={productoEditar}
+            onClose={handleClose}
+            onSave={guardarEdicion}
+          />
+        )}
       </Container>
     </>
   );

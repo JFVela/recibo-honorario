@@ -19,9 +19,9 @@ const Formulario = ({
     <form className={styles.formulario}>
       <Titulo>Bienvenido!</Titulo>
       <Grid container spacing={2} direction="row" wrap="wrap">
-        <Grid item xs={12} sm={12}>
-          <Label children="Código" value={id} disabled />
-        </Grid>
+        {/* Campo oculto para el Código */}
+        <input type="hidden" value={id} />
+
         <Grid item xs={12} sm={5}>
           <Label
             tipo="search"
