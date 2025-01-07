@@ -22,7 +22,7 @@ const Detalles = styled.div`
   flex-wrap: wrap;
 `;
 
-function Tabla({ productos, subtotal }) {
+function Tabla({ productos, subtotal, eliminarProducto }) {
   const headers = ["Id", "Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
 
   return (
@@ -49,9 +49,9 @@ function Tabla({ productos, subtotal }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {productos.map((producto, index) => (
+              {productos.map((producto) => (
                 <TableRow
-                  key={index}
+                  key={producto.Id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="left">{producto.Id}</TableCell>
@@ -59,10 +59,14 @@ function Tabla({ productos, subtotal }) {
                   <TableCell align="right">{producto.Cantidad}</TableCell>
                   <TableCell align="right">S/{producto.Precio}</TableCell>
                   <TableCell align="right">
-                    S/{producto.Cantidad * producto.Precio}
+                    S/{(producto.Cantidad * producto.Precio).toFixed(2)}
                   </TableCell>
                   <TableCell align="right">
-                    <IconButton aria-label="delete" color="error">
+                    <IconButton
+                      aria-label="delete"
+                      color="error"
+                      onClick={() => eliminarProducto(producto.Id)}
+                    >
                       <ClearIcon fontSize="medium" />
                     </IconButton>
                     <IconButton aria-label="edit" color="warning">

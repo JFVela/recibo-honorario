@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const ResumenContenido = styled.section`
+  position: sticky;
+  bottom: 10px;
+  margin-top: 10px;
   background-color: cornsilk;
   font-family: "Arimo";
   padding: 15px 10px;
@@ -8,6 +11,8 @@ const ResumenContenido = styled.section`
   max-width: 250px;
   display: flex;
   justify-content: center;
+  border-style: solid;
+  border-radius: 10px;
 `;
 
 const Subtitulo = styled.h3`
