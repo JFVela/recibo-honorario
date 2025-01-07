@@ -8,18 +8,15 @@ import { useState } from "react";
 function App() {
   const [productos, setProductos] = useState([]);
 
+  //Funcion Agregar Producto
   const agregarProducto = (producto) => {
     setProductos((prev) => {
-      // console.log("Productos actuales:", prev);
       return [...prev, producto];
     });
   };
 
-  console.log("Productos en App:", productos);
-
   // Calcular subtotal dinámico
   const subtotal = productos.reduce((total, producto) => {
-    // console.log("Producto:", producto);
     return total + producto.Cantidad * producto.Precio;
   }, 0);
 

@@ -5,8 +5,15 @@ import Titulo from "../Titulo";
 import styles from "./Formulario.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 
 const Formulario = ({ agregarProducto }) => {
+  //Identificador unico
+  const uuid = uuidv4();
+  //Devuelve 6 caracteres aleatorios
+  const codigo = uuid.substring(0, 6);
+
+  const [id, setId] = useState(codigo);
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [precio, setPrecio] = useState("");
@@ -24,12 +31,13 @@ const Formulario = ({ agregarProducto }) => {
         title: "Error",
         showConfirmButton: false,
         text: "Por favor, llena todos los campos correctamente.",
-        timer: 2000
+        timer: 2000,
       });
       return;
     }
 
     const nuevoProducto = {
+      Id: id,
       name: nombre,
       Cantidad: cantidadNum,
       Precio: precioNum,
@@ -38,15 +46,26 @@ const Formulario = ({ agregarProducto }) => {
     agregarProducto(nuevoProducto); // Llama a la función pasada desde App
 
     // Limpiar campos
+    setId(codigo);
     setNombre("");
     setCantidad("");
     setPrecio("");
+  
+    //verificacion de consola
+    console.log(nuevoProducto)
   };
 
   return (
     <form className={styles.formulario}>
       <Titulo>Bienvenido!</Titulo>
       <Grid container spacing={2} direction="row" wrap="wrap">
+        <Grid item xs={12} sm={12}>
+          <Label
+            children="Codigo"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+        </Grid>
         <Grid item xs={12} sm={5}>
           <Label
             tipo="search"
