@@ -14,6 +14,7 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import ClearIcon from "@mui/icons-material/Clear";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import styled from "styled-components";
+import { jsPDF } from "jspdf";
 
 const Detalles = styled.div`
   display: flex;
@@ -26,7 +27,9 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const headers = ["Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
 
   const generatePDF = () => {
-    // Function intentionally left empty
+    const doc = new jsPDF();
+    doc.text("Hello world!", 10, 10);
+    doc.save(`factura.pdf`);
   };
 
   return (
