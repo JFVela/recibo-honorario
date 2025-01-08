@@ -1,4 +1,4 @@
-import { Alert, Container } from "@mui/material";
+import { Alert, Button, Container } from "@mui/material";
 import "./App.css";
 import Cabecera from "./components/Cabecera";
 import Formulario from "./components/Formulario";
@@ -7,6 +7,8 @@ import ModalDialog from "./components/ModalDialog";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Alerta from "./components/Alerta";
+import PDF from "./components/PDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 function App() {
   //Variables
@@ -113,6 +115,16 @@ function App() {
   return (
     <>
       <Cabecera />
+      <div>
+        <PDFDownloadLink
+          document={<PDF productos={productos} />}
+          fileName="boleta.pdf"
+        >
+          {({ loading, url, error, blob }) =>
+            loading ? <Button>Cargando</Button> : <Button>Descargar</Button>
+          }
+        </PDFDownloadLink>
+      </div>
       <Container maxWidth="md">
         <Formulario
           id={id}
