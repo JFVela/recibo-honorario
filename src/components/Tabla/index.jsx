@@ -32,6 +32,7 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const documento = uuidv4();
 
   const generatePDF = () => {
+    console.log("Generar PDF")
     const doc = new jsPDF();
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
