@@ -14,6 +14,9 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import ClearIcon from "@mui/icons-material/Clear";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import styled from "styled-components";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDF from "../PDF";
+import { v4 as uuidv4 } from "uuid";
 
 const Detalles = styled.div`
   display: flex;
@@ -24,10 +27,6 @@ const Detalles = styled.div`
 
 function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const headers = ["Prod.", "Cant.", "Prec.", "Subt.", "Accion"];
-
-  const generatePDF = () => {
-    // Function intentionally left empty
-  };
 
   return (
     <>
@@ -88,22 +87,34 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
         <Resumen subtotal={subtotal} />
       </Detalles>
       <div className={styles.contenedorBoton}>
-        <Button
-          sx={{
-            bgcolor: "var(--cielo)",
-            color: "var(--negro)",
-            fontFamily: "Arimo",
-            fontSize: "20px",
-            fontWeight: "800",
-            border: "3px solid black",
-            borderRadius: "10px",
-          }}
-          variant="contained"
-          endIcon={<DoneOutlineIcon />}
-          onClick={generatePDF}
-        >
-          Finalizar
-        </Button>
+        <div>
+          <PDFDownloadLink
+            document={<PDF enviar={productos} />}
+            fileName={`${uuidv4()}.pdf`}
+          >
+            {({ loading, url, error, blob }) =>
+              loading ? (
+                <Button>Cargando</Button>
+              ) : (
+                <Button
+                  sx={{
+                    bgcolor: "var(--cielo)",
+                    color: "var(--negro)",
+                    fontFamily: "Arimo",
+                    fontSize: "20px",
+                    fontWeight: "800",
+                    border: "3px solid black",
+                    borderRadius: "10px",
+                  }}
+                  variant="contained"
+                  endIcon={<DoneOutlineIcon />}
+                >
+                  Finalizar
+                </Button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
       </div>
     </>
   );

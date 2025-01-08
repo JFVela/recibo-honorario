@@ -1,19 +1,21 @@
-import { Document, Page, Text, StyleSheet, Image } from "@react-pdf/renderer";
+import { Document, Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 
-import Logo from "./unnamed.png";
-
-function PDF() {
+function PDF({ enviar }) {
   return (
     <Document>
       <Page>
-        <Text>Hola</Text>
-        <Image src={Logo} />
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem possimus voluptate quas optio deserunt ut nostrum
-          tempora saepe soluta voluptatem distinctio, provident dolore natus
-          assumenda, esse a error minima consequatur.
-        </Text>
+        <Text>Boleta</Text>
+        {/* <Image src={Logo} /> */}
+        <View>
+          {enviar.map((producto) => (
+            <View key={producto.Id} style={{ textAlign: "right" }}>
+              <Text>{producto.name}</Text>
+              <Text>{producto.Cantidad}</Text>
+              <Text>S/{producto.Precio}</Text>
+              <Text>S/{(producto.Cantidad * producto.Precio).toFixed(2)}</Text>
+            </View>
+          ))}
+        </View>
       </Page>
     </Document>
   );
