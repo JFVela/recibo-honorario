@@ -17,7 +17,6 @@ import styled from "styled-components";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { v4 as uuidv4 } from "uuid";
-// import qrImageUrl from "./qr.png";
 
 const Detalles = styled.div`
   display: flex;
@@ -32,7 +31,7 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
   const documento = uuidv4();
 
   const generatePDF = () => {
-    console.log("Generar PDF")
+    console.log("Generar PDF");
     const doc = new jsPDF();
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
@@ -69,12 +68,7 @@ function Tabla({ productos, subtotal, eliminarProducto, editarProducto }) {
       align: "right",
     });
 
-    // doc.setFontSize(16);
-    // doc.text("Escanea para pagar", 105, finalY + 30, { align: "center" });
-
-    // doc.addImage(qrImageUrl, "png", 75, finalY + 35, 60, 60);
-
-    doc.save(`factura_${documento}.pdf`);
+    doc.save(`factura_ramon.pdf`);
   };
 
   return (
